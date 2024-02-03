@@ -40,7 +40,7 @@ Follow these steps to get Xendpal up and running on your local machine:
     First, clone the Xendpal frontend repository to your local machine using Git:
 
     ```bash
-    git clone https://github.com/joeygoesgrey/Xendpal-frontend.git
+    git clone https://github.com/joeygoesgrey/Xendpal-client-side.git
     ```
 
 2. **Navigate to the Directory**
@@ -48,7 +48,7 @@ Follow these steps to get Xendpal up and running on your local machine:
     Change into the directory of the cloned repository:
 
     ```bash
-    cd Xendpal-frontend
+    cd Xendpal-client-side
     ```
 
 3. **Install Dependencies**
