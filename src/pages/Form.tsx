@@ -131,12 +131,14 @@ const FileUploadForm = () => {
 
   return (
     <div>
+      <div className="flex justify-center items-center my-5">
+        <ModalComponent />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="border w-full border-gray-200 bg-white py-4 px-6 rounded-md"
       >
         <div className="flex justify-between">
-          <ModalComponent />
           <SelectComponent />
         </div>
         {uploading && (
@@ -205,31 +207,6 @@ const FileUploadForm = () => {
           </div>
         )}
 
-        <style jsx>
-          {`
-            .file-upload-input {
-              position: absolute;
-              margin: 0;
-              padding: 0px;
-              width: 100%;
-              height: 100%;
-              outline: none;
-              opacity: 0;
-              cursor: pointer;
-            }
-
-            .image-upload-wrap {
-              margin-top: 20px;
-              border: 4px dashed #1fb264;
-              position: relative;
-            }
-
-            .image-upload-wrap:hover {
-              background-color: #1fb264;
-              border: 4px dashed #ffffff;
-            }
-          `}
-        </style>
       </form>{" "}
     </div>
   );

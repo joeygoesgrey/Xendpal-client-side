@@ -1,4 +1,4 @@
-# Xendpal - Static Web File Platform
+# Xendpal - Content Management and Delivery API 
 
 ## Introduction
 

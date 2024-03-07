@@ -10,7 +10,7 @@ interface Folder {
 }
 
 function SelectComponent() {
-    const { dispatch } = useContext(ApplicationContext);
+    const { dispatch, loadFolders } = useContext(ApplicationContext);
     const [folders, setFolders] = useState<Folder[]>([]);
     const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
 
@@ -19,7 +19,7 @@ function SelectComponent() {
         API.get<{ folders: Folder[] }>('/user/folders').then((response) => {
             setFolders(response.data.folders);
         });
-    }, []);
+    }, [loadFolders]);
 
     const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedFolderId = event.target.value;

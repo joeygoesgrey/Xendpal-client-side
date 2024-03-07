@@ -9,6 +9,8 @@ interface ApplicationContextProps {
     refreshUserItems: boolean;
     searchTerm: string;
     folder_id: string;
+    loadFolders: boolean;
+    dispatch: React.Dispatch<ApplicationAction>;
 }
 
 interface ApplicationAction {
@@ -24,7 +26,8 @@ const INITIAL_STATE: ApplicationContextProps = {
     userItems: null, // Replace 'null' with the initial type of userItems
     refreshUserItems: false,
     searchTerm: "",
-    folder_id: null,
+    folder_id: "",
+    loadFolders: false,
 };
 
 export const ApplicationContext = createContext<ApplicationContextProps>(
@@ -48,6 +51,8 @@ const ApplicationReducer = (
             return { ...state, searchTerm: action.payload };
         case "SET_FOLDERID":
             return { ...state, folder_id: action.payload };
+        case "SET_LOADFOLDERS":
+            return { ...state, loadFolders: action.payload };
         default:
             return state;
     }
@@ -76,6 +81,7 @@ export const ApplicationContextProvider = ({
                 refreshUserItems: state.refreshUserItems,
                 searchTerm: state.searchTerm,
                 folder_id: state.folder_id,
+                loadFolders: state.loadFolders,
                 dispatch,
             }}
         >
@@ -83,4 +89,3 @@ export const ApplicationContextProvider = ({
         </ApplicationContext.Provider>
     );
 };
- 

@@ -35,7 +35,7 @@ function Sidebar({ className, toggle }: SidebarProps) {
           {/* Logo */}
           <SidebarLogo toggle={toggle} icon={faCloudArrowUp} text="Xendpal" />
           <span className="text-center text-gray-400">
-            &bull; Static Web File Platform &bull;
+            &bull; Content Management and Delivery API  &bull;
           </span>
           {/* Menu */}
           <MenuList menus={menus} toggle={toggle} />

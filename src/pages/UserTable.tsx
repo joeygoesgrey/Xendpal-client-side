@@ -283,8 +283,7 @@ function UserTable({ loading }: { loading: boolean }) {
                             type="button"
                             onClick={handleDeleteConfirm}
                           >
-                            Yes {file.id}
-
+                            Yes
                           </button>
                         ) : (
                           <button

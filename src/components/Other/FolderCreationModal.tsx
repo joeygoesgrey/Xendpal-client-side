@@ -1,8 +1,11 @@
 import { Button, Modal, TextInput } from 'flowbite-react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { API } from '@/utils/utils'
+import { ApplicationContext } from "@/context/ApplicationContext";
+
 
 function ModalComponent() {
+    const { dispatch } = useContext(ApplicationContext);
     const [openModal, setOpenModal] = useState(false);
     const [folderName, setfolderName] = useState('');
 
@@ -15,8 +18,8 @@ function ModalComponent() {
         try {
             // Send a POST request to your server with the folder name
             const response = await API.post('/user/create_folder', { name: folderName });
-            console.log(response.data); // Handle the response as needed
             onCloseModal(); // Close the modal after successful creation
+            dispatch({ type: 'SET_LOADFOLDERS', payload: true }); // Trigger a reload of folders
         } catch (error) {
             console.error('Error creating folder:', error);
         }

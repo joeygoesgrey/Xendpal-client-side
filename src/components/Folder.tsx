@@ -144,7 +144,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, loading, folde
                 <Timeline.Point icon={HiCalendar} />
                 <Timeline.Content>
                     <Timeline.Time> <h1 className="p-1 mb-3 uppercase">
-                       {foldername} </h1></Timeline.Time>
+                        {foldername} </h1></Timeline.Time>
                     <>
                         {Object.values(copiedStatus).some((status) => status) && (
                             <div
