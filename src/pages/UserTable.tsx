@@ -14,24 +14,39 @@ import {
   API_BASE_URL,
   getUserItems,
   deleteUpload,
-  formatBytes,
   API
 } from "@/utils/utils";
 import moment from "moment";
 import { ApplicationContext } from "@/context/ApplicationContext";
 import { Link } from 'react-router-dom';
-
+import DeleteModal from "@/components/Other/DeletionModal";
 
 interface CopiedStatus {
   [key: string]: boolean;
 }
 
+interface handleClickOptionsProps {
+  file_type: string;
+  fileIdToDelete: string | number;
+}
+
 function UserTable({ loading }: { loading: boolean }) {
-  const { userItems, searchTerm, dispatch } = useContext(ApplicationContext);
-  const [fileIdToDelete, setFileIdToDelete] = useState<string | null>(null);
-  const [refresh, setRefresh] = useState<boolean>(false);
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const { refreshUserItems, userItems, searchTerm, dispatch } = useContext(ApplicationContext);
+  // const [fileIdToDelete, setFileIdToDelete] = useState<string | null>(null);
   const [copiedStatus, setCopiedStatus] = useState<CopiedStatus>({});
+
+  useEffect(() => {
+    // This code will run whenever the page or URL changes
+    dispatch({ type: "SET_USERITEMS", payload: null });
+    dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
+  }, [window.location.href]); // Pass the variable that you want to watch for changes here
+
+  useEffect(() => {
+    getUserItems().then((userItemsFromServer) => {
+      dispatch({ type: "SET_USERITEMS", payload: userItemsFromServer });
+      dispatch({ type: 'SET_REFRESHUSERITEMS', payload: false })
+    });
+  }, [refreshUserItems]);
 
   const handleCopyClick = (fileId: string, link: string) => {
     navigator.clipboard.writeText(link);
@@ -42,55 +57,12 @@ function UserTable({ loading }: { loading: boolean }) {
     );
   };
 
-  const handleDeleteClick = (fileId: string) => {
+  const handleClickOptions = (props: handleClickOptionsProps) => {
     // Set the file ID to delete and show the modal
-    setFileIdToDelete(fileId);
-    setShowDeleteModal(true);
-  };
-  const handleDeleteConfirmFolder = async () => {
-    try {
-      // Await the deleteUpload function and capture the returned value
-      const response = await API.delete(`user/delete_folders/${fileIdToDelete}`);
-
-      // Check if the response status code is 204
-      if (response.status === 204) {
-        console.log('Folder deleted successfully');
-        setRefresh(true);
-        setShowDeleteModal(false);
-      } else {
-        console.error('Unexpected response status:', response.status);
-        // Handle other status codes or errors as needed
-      }
-    } catch (error) {
-      console.error(error);
-      // Handle other errors, such as network errors, here
-    }
-  };
-
-  const handleDeleteConfirm = async () => {
-    try {
-      // Await the deleteUpload function and capture the returned value
-      const result = await deleteUpload(fileIdToDelete);
-      setRefresh(true);
-      setShowDeleteModal(false);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    // This code will run whenever the page or URL changes
-    dispatch({ type: "SET_USERITEMS", payload: null });
-    setShowDeleteModal(false);
-  }, [window.location.href]); // Pass the variable that you want to watch for changes here
-
-  useEffect(() => {
-    getUserItems().then((userItemsFromServer) => {
-      dispatch({ type: "SET_USERITEMS", payload: userItemsFromServer });
-      setRefresh(false); // Reset the refresh state after data is fetched
-    });
-  }, [refresh]);
-
+    dispatch({ type: 'SET_FILETYPETODELETE', payload: props.file_type })
+    dispatch({ type: 'SET_FILEIDTODELETE', payload: props.fileIdToDelete })
+    dispatch({ type: 'SET_SHOWDELETEMODAL', payload: true })
+  }
 
   const dataHeader = [
     {
@@ -237,106 +209,26 @@ function UserTable({ loading }: { loading: boolean }) {
                 </div>
               )}
               <FontAwesomeIcon
-                onClick={() => handleDeleteClick(file.id)}
+                onClick={() => handleClickOptions({
+                  file_type: file.type, // Replace with the actual file type
+                  fileIdToDelete: file.id // Replace with the actual file ID
+                })}
                 icon={faTrash}
                 className={`text-sky-700 inline-flex my-auto px-3 cursor-pointer text-sm`}
               />
-              {showDeleteModal && (
-                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                    {/*content*/}
-                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                      {/*header*/}
-                      <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                        <h3 className="text-3xl font-semibold">
-                          Confirm Deletion
-                        </h3>
-                        <button
-                          className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                          onClick={() => setShowDeleteModal(false)}
-                        >
-                          <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                            ×
-                          </span>
-                        </button>
-                      </div>
-                      {/*body*/}
-                      <div className="relative p-6 flex-auto">
-                        <p className="mt-4 mb-1 text-slate-500 text-lg leading-relaxed">
-                          Are you sure you wanna permanently delete this?
-                        </p>
-                      </div>
 
-                      {/*footer*/}
-                      <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                        <button
-                          className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button"
-                          onClick={() => setShowDeleteModal(false)}
-                        >
-                          Close
-                        </button>
-                        {file.type === 'file' ? (
-
-                          <button
-                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={handleDeleteConfirm}
-                          >
-                            Yes
-                          </button>
-                        ) : (
-                          <button
-                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={handleDeleteConfirmFolder}
-                          >
-                            Yes
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <DeleteModal />
+              
             </TableCell>
           </tr >
         ))
         }
       </Datatables >
-      <style>
-        {`
-          .tooltip {
-            position: absolute;
-            background-color: black;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            z-index: 1;
-            top: -5px;
-            left: 105%;
-          }
 
-          .tooltip::after {
-            content: "";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
-          }
-
-          .icon-container {
-            position: relative;
-            display: inline-block;
-          }
-        `}
-      </style>
     </>
   );
 }
+
+
 
 export default UserTable;

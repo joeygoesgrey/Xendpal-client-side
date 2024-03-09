@@ -57,7 +57,7 @@ function LoginIndex() {
                   Login to Your Xendpal Account
                 </h1>
                 <span className="text-sm">
-                  Xendpal - Content Management and Delivery API  -
+                  Xendpal - Static File Database  -
                 </span>
               </div>
             </div>

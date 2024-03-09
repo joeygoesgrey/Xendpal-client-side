@@ -290,37 +290,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, loading, folde
                             ))
                             }
                         </Datatables >
-                        <style>
-                            {`
-          .tooltip {
-            position: absolute;
-            background-color: black;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            z-index: 1;
-            top: -5px;
-            left: 105%;
-          }
 
-          .tooltip::after {
-            content: "";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
-          }
-
-          .icon-container {
-            position: relative;
-            display: inline-block;
-          }
-        `}
-                        </style>
                     </>
                 </Timeline.Content>
             </Timeline.Item>
@@ -329,7 +299,5 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, loading, folde
 
     );
 }
-
-
 
 export default FolderPage;

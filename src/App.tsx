@@ -15,22 +15,22 @@ import { isTokenExpired, getToken } from "@/utils/utils";
 
 
 function App() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = getToken(); // Get the token from localStorage or cookies
-      // Redirect to login page if no token or token is expired
-      if (!token || isTokenExpired(token)) {
-        if (!location.pathname.startsWith("/auth/login")) {
-          navigate("/auth/login");
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const token = getToken(); // Get the token from localStorage or cookies
+  //     // Redirect to login page if no token or token is expired
+  //     if (!token || isTokenExpired(token)) {
+  //       if (!location.pathname.startsWith("/auth/login")) {
+  //         navigate("/auth/login");
+  //       }
+  //     }
+  //   };
 
-    checkAuth();
-  }, [navigate, location.pathname]);
+  //   checkAuth();
+  // }, [navigate, location.pathname]);
 
   return (
     <Routes>

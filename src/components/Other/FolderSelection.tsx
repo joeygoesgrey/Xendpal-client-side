@@ -10,9 +10,9 @@ interface Folder {
 }
 
 function SelectComponent() {
-    const { dispatch, loadFolders } = useContext(ApplicationContext);
+    const { dispatch, loadFolders, folder_id } = useContext(ApplicationContext);
     const [folders, setFolders] = useState<Folder[]>([]);
-    const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
+    // const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
 
     useEffect(() => {
         // Fetch folders from the server when the component mounts
@@ -23,13 +23,13 @@ function SelectComponent() {
 
     const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedFolderId = event.target.value;
-        setSelectedFolder(selectedFolderId);
+        // setSelectedFolder(selectedFolderId);
         dispatch({ type: "SET_FOLDERID", payload: selectedFolderId });
     };
 
     return (
         <div className="max-w-md">
-            <Select id="folders" onChange={handleSelectChange} value={selectedFolder || ""}>
+            <Select id="folders" onChange={handleSelectChange} value={folder_id || ""}>
                 <option value="" disabled>Folder to upload to</option>
                 {folders.map((folder) => (
                     <option key={folder.id} value={folder.id}>

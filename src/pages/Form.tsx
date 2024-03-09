@@ -72,7 +72,7 @@ const FileUploadForm = () => {
       formData.append("sequence_number", chunkNumber);
       formData.append("total_chunks", totalChunks);
       formData.append("is_complete", chunkNumber === totalChunks - 1);
-      formData.append("file_type", file.type);
+      formData.append("file_type", "file");
       if (folder_id) {
         formData.append("folder_id", folder_id);
       }
@@ -116,7 +116,8 @@ const FileUploadForm = () => {
     for (const file of selectedFiles) {
       await uploadFile(file); // Upload each file individually
     }
-
+    dispatch({ type: "SET_FOLDERID", payload: "" });
+    setTotalBytes(0)
     setUploading(false); // Indicate uploading process has ended
     setSelectedFiles([]); // Clear the selection
     setUploadProgress({}); // Reset the upload progress
@@ -165,7 +166,7 @@ const FileUploadForm = () => {
               selectedFiles.length > 0 &&
               selectedFiles.map((file, index) => (
                 <p key={index} className="truncate mx-2">
-                  {file.name} {folder_id}
+                  {file.name}
                 </p>
               ))}
           </div>

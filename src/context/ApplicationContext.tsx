@@ -10,6 +10,9 @@ interface ApplicationContextProps {
     searchTerm: string;
     folder_id: string;
     loadFolders: boolean;
+    showDeleteModal: boolean;
+    fileIdToDelete: string;
+    fileTypetoDelete: string;
     dispatch: React.Dispatch<ApplicationAction>;
 }
 
@@ -28,6 +31,9 @@ const INITIAL_STATE: ApplicationContextProps = {
     searchTerm: "",
     folder_id: "",
     loadFolders: false,
+    showDeleteModal: false,
+    fileIdToDelete: "",
+    fileTypetoDelete: "",
 };
 
 export const ApplicationContext = createContext<ApplicationContextProps>(
@@ -53,6 +59,12 @@ const ApplicationReducer = (
             return { ...state, folder_id: action.payload };
         case "SET_LOADFOLDERS":
             return { ...state, loadFolders: action.payload };
+        case "SET_SHOWDELETEMODAL":
+            return { ...state, showDeleteModal: action.payload };
+        case "SET_FILEIDTODELETE":
+            return { ...state, fileIdToDelete: action.payload };
+        case "SET_FILETYPETODELETE":
+            return { ...state, fileTypetoDelete: action.payload };
         default:
             return state;
     }
@@ -82,6 +94,9 @@ export const ApplicationContextProvider = ({
                 searchTerm: state.searchTerm,
                 folder_id: state.folder_id,
                 loadFolders: state.loadFolders,
+                showDeleteModal: state.showDeleteModal,
+                fileIdToDelete: state.fileIdToDelete,
+                fileTypetoDelete: state.fileTypetoDelete,
                 dispatch,
             }}
         >
