@@ -24,7 +24,7 @@ function FolderTable() {
             payload: "",
         }, []);
     })
-
+    // query, folderId, loading, foldername 
     // You might need to adjust the FolderPage props if it expects a different type for `query`
     return (
         <>
@@ -34,9 +34,9 @@ function FolderTable() {
                 <div className="mainCard">
                     <div className="border w-full border-gray-200 bg-white py-2 px-2 rounded-md">
                         <FolderPage
-                            loading={loading}
-                            query={folderId} // Consider what specific value or type you want for `query`
+                            query={folderId}
                             folderId={folderId}
+                            // loading={loading}
                             foldername={foldername || ''} // Ensure foldername is a string
                         />
                     </div>

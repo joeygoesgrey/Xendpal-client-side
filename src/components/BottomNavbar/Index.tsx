@@ -1,6 +1,7 @@
 import {
   faFolderTree,
   faHome,
+  faKey,
   faUpload,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,23 +28,23 @@ function Index() {
         dis: "translate-x-0",
       },
       {
-        label: "My Items",
-        icon: faFolderTree,
-        link: "/items",
-        dis: "translate-x-16",
-      },
-      {
         label: "Upload",
         icon: faUpload,
         link: "/upload",
+        dis: "translate-x-16",
+      },
+      {
+        label: "My Items",
+        icon: faFolderTree,
+        link: "/items",
         dis: "translate-x-32",
       },
-      // {
-      //   label: "History",
-      //   icon: faHistory,
-      //   link: "/history",
-      //   dis: "translate-x-48",
-      // },
+      {
+        label: "Api Keys",
+        icon: faKey,
+        link: "/apikeys",
+        dis: "translate-x-48",
+      },
     ],
     []
   );
@@ -81,8 +82,8 @@ function Index() {
             </span>
             <span
               className={`text-xs font-semibold ${active === index
-                  ? "translate-y-5 duration-500 opacity-100"
-                  : "opacity-0 translate-y-10"
+                ? "translate-y-5 duration-500 opacity-100"
+                : "opacity-0 translate-y-10"
                 }`}
             >
               {menu.label}

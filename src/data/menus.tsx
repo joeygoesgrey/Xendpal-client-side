@@ -3,6 +3,7 @@ import {
   faTachometer,
   faFolderTree,
   faUpload,
+  faKey
 } from "@fortawesome/free-solid-svg-icons";
 
 // Define a type for menu items
@@ -27,6 +28,11 @@ const initMenu: MenuItem[] = [
     label: "Dashboard",
     path: "/",
     icon: faTachometer,
+  },
+  {
+    label: "API Keys",
+    path: "/apikeys",
+    icon: faKey,
   },
 ];
 

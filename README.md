@@ -55,10 +55,10 @@ Limited storage space on your web hosting plan can restrict the number of static
 **Xendpal's Solution:** Offload storage burdens from your hosting provider by using Xendpal to host images, videos, and other assets. Reference them using direct links, potentially freeing up valuable storage space on your hosting plan.
 
 ## Getting Started
+
 ![Xendpal Frontend Preview](src/assets/xendpalreadmepic.png)
 ![Xendpal Frontend Preview](src/assets/Screenshot1.png)
 ![Xendpal Frontend Preview](src/assets/Screenshot2.png)
-
 
 ### Prerequisites
 

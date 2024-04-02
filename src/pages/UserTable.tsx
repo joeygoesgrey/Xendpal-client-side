@@ -11,10 +11,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  API_BASE_URL,
   getUserItems,
-  deleteUpload,
-  API
 } from "@/utils/utils";
 import moment from "moment";
 import { ApplicationContext } from "@/context/ApplicationContext";
@@ -131,100 +128,103 @@ function UserTable({ loading }: { loading: boolean }) {
           </div>
         </div>
       )}
+      {filteredUserItems.length > 0 && (
+        <Datatables loading={loading} dataHeader={dataHeader}>
+          {filteredUserItems.map((file, index) => (
+            <tr
+              key={index}
+              className="bg-white border md:border-b block md:table-row rounded-md shadow-md md:rounded-none md:shadow-none mb-5"
+            >
+              <TableCell dataLabel="Type" showLabel={true}>
+                {file.type === 'folder' ? (
+                  <FontAwesomeIcon
+                    icon={faFolder}
+                    className="text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faFile}
+                    className="text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm"
+                  />
+                )}
+              </TableCell>
 
-      <Datatables loading={loading} dataHeader={dataHeader}>
-        {filteredUserItems.map((file, index) => (
-          <tr
-            key={index}
-            className="bg-white border md:border-b block md:table-row rounded-md shadow-md md:rounded-none md:shadow-none mb-5"
-          >
-            <TableCell dataLabel="Type" showLabel={true}>
-              {file.type === 'folder' ? (
-                <FontAwesomeIcon
-                  icon={faFolder}
-                  className="text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm"
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faFile}
-                  className="text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm"
-                />
-              )}
-            </TableCell>
+              < TableCell dataLabel="Name" showLabel={true} >
+                {file.type === 'file' ? (
+                  <a
+                    href={`
+                    https://storage.googleapis.com/xendpal/${file.name}`}
+                    target="_blank"
+                    className="inline-flex items-center"
+                  >
+                    <small className="truncate">
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className={`text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm`}
+                      />{" "}
+                      {highlightText(file.name, searchTerm)}
+                    </small>
+                  </a>) : (
+                  <Link to={`/${file.name}?q=${file.id}`}>
+                    <h1 className="uppercase text-slate-400 hover:underline">
+                      {highlightText(file.name, searchTerm)}
+                    </h1>
+                  </Link>
+                )}
+              </TableCell >
 
-            < TableCell dataLabel="Name" showLabel={true} >
-              {file.type === 'file' ? (
-                <a
-                  href={`${API_BASE_URL}/Uploads/${file.id}-${file.name}`}
-                  target="_blank"
-                  className="inline-flex items-center"
-                >
-                  <small className="truncate">
-                    <FontAwesomeIcon
-                      icon={faDownload}
-                      className={`text-emerald-500 inline-flex py-1 px-1 cursor-pointer text-sm`}
-                    />{" "}
-                    {highlightText(file.name, searchTerm)}
-                  </small>
-                </a>) : (
-                <Link to={`/${file.name}?q=${file.id}`}>
-                  <h1 className="uppercase text-slate-400 hover:underline">
-                    {highlightText(file.name, searchTerm)}
-                  </h1>
-                </Link>
-              )}
-            </TableCell >
-
-            <TableCell dataLabel="Created At" showLabel={true}>
-              <span className="space-x-1">
-                <span className="rounded-full py-1 px-3 text-xs font-semibold bg-emerald-200 text-green-900">
-                  {moment(file?.created_at).fromNow()}
+              <TableCell dataLabel="Created At" showLabel={true}>
+                <span className="space-x-1">
+                  <span className="rounded-full py-1 px-3 text-xs font-semibold bg-emerald-200 text-green-900">
+                    {moment(file?.created_at).fromNow()}
+                  </span>
                 </span>
-              </span>
-            </TableCell>
+              </TableCell>
 
-            <TableCell>
-              {file.type === 'file' && (
+              <TableCell>
+                {file.type === 'file' && (
 
-                <div
-                  onClick={() =>
-                    handleCopyClick(
-                      file.file_id,
-                      `${API_BASE_URL}/Uploads/${file.id}-${file.name}`
-                    )
-                  }
-                  className={`icon-container inline-flex my-auto px-3 cursor-pointer text-sm`}
-                >
-                  {copiedStatus[file.id] ? (
-                    <FontAwesomeIcon
-                      icon={faCheckCircle}
-                      className="text-green-500"
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faClipboard}
-                      className="text-sky-700"
-                    />
-                  )}
-                </div>
-              )}
-              <FontAwesomeIcon
-                onClick={() => handleClickOptions({
-                  file_type: file.type, // Replace with the actual file type
-                  fileIdToDelete: file.id // Replace with the actual file ID
-                })}
-                icon={faTrash}
-                className={`text-sky-700 inline-flex my-auto px-3 cursor-pointer text-sm`}
-              />
+                  <div
+                    onClick={() =>
+                      handleCopyClick(
+                        file.file_id,
+                        `https://storage.googleapis.com/xendpal/${file.name}`
+                      )
+                    }
+                    className={`icon-container inline-flex my-auto px-3 cursor-pointer text-sm`}
+                  >
+                    {copiedStatus[file.id] ? (
+                      <FontAwesomeIcon
+                        icon={faCheckCircle}
+                        className="text-green-500"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faClipboard}
+                        className="text-sky-700"
+                      />
+                    )}
+                  </div>
+                )}
+                <FontAwesomeIcon
+                  onClick={() => handleClickOptions({
+                    file_type: file.type, // Replace with the actual file type
+                    fileIdToDelete: file.id // Replace with the actual file ID
+                  })}
+                  icon={faTrash}
+                  className={`text-sky-700 inline-flex my-auto px-3 cursor-pointer text-sm`}
+                />
 
-              <DeleteModal />
-              
-            </TableCell>
-          </tr >
-        ))
-        }
-      </Datatables >
+                <DeleteModal />
 
+              </TableCell>
+            </tr >
+          ))}
+        </Datatables >
+      )}
+      {userItems?.length === 0 && (
+        <div className="flex justify-center items-center h-full"> No item has been uploaded to Xendpal </div>
+      )}
     </>
   );
 }

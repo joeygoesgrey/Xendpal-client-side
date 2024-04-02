@@ -94,11 +94,7 @@ const getUserItems = async () => {
 const getuserinfo = async () => {
     try {
         const response = await API.get('/user/info');
-        const data = await response.data;
-        sessionStorage.setItem('name', data?.name);
-        sessionStorage.setItem('picture', data?.picture);
-        sessionStorage.setItem('space', data?.space);
-        sessionStorage.setItem('max_space', data?.max_space);
+        const data = await response.data; 
         return data;
     } catch (error) {
         console.error('Error:', error);

@@ -8,7 +8,7 @@ import { API, getuserinfo, formatBytes } from "@/utils/utils";
 import ModalComponent from "@/components/Other/FolderCreationModal";
 import { Spinner } from "flowbite-react";
 import SelectComponent from "@/components/Other/FolderSelection";
-
+import axios from 'axios';
 
 function Form() {
   const [sidebarToggle] = useOutletContext();
@@ -39,8 +39,10 @@ const FileUploadForm = () => {
   const handleFileChange = (e) => {
     const files = [...e.target.files];
     const newUploadProgress = {};
+    let totalBytes = 0;
 
     files.forEach((file) => {
+      totalBytes += file.size; // Calculate the total size of selected files
       newUploadProgress[file.name] = {
         uploadedBytes: 0,
         totalBytes: file.size,
@@ -48,67 +50,89 @@ const FileUploadForm = () => {
       };
     });
 
+    // Calculate remaining space
+    const remainingSpace = userinfo.max_space - userinfo.space;
+    if (totalBytes > remainingSpace) {
+      alert('You do not have enough space to upload these files.');
+      // Optionally, clear the selected files if they exceed the available space
+      setSelectedFiles([]);
+      return; // Stop further execution
+    }
+
     setSelectedFiles(files);
     setUploadProgress(newUploadProgress);
   };
 
+  async function uploadFileToStorageBucket(presignedUrl, file) {
+    try {
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          // Update upload progress state
+          setUploadProgress(prevProgress => ({
+            ...prevProgress,
+            [file.name]: {
+              uploadedBytes: progressEvent.loaded,
+              totalBytes: progressEvent.total,
+              percentage,
+            },
+          }));
+        },
+        headers: {
+          'Content-Type': file.type,
+        },
+      };
+
+      const response = await axios.put(presignedUrl, file, config);
+      if (response.status === 200) {
+        console.log('Upload successful');
+      } else {
+        console.error('Upload failed with status: ', response.status);
+      }
+      return response; // Return the response for further processing
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error; // Re-throw the error to be handled by the caller
+    }
+  }
+
+
   const uploadFile = async (file) => {
-    setTotalBytes(file.size);
-
-    const chunkSize = 1024 * 1024; // 1MB chunks
-    let offset = 0;
-
-    const totalChunks = Math.ceil(file.size / chunkSize);
-
-    for (let chunkNumber = 0; chunkNumber < totalChunks; chunkNumber++) {
-      const start = offset;
-      const end = Math.min(offset + chunkSize, file.size);
-      const chunk = file.slice(start, end);
-
-      const formData = new FormData();
-      formData.append("file_data", chunk);
-      formData.append("file_name", file.name);
-      formData.append("total_file_size", file.size);
-      formData.append("sequence_number", chunkNumber);
-      formData.append("total_chunks", totalChunks);
-      formData.append("is_complete", chunkNumber === totalChunks - 1);
-      formData.append("file_type", "file");
-      if (folder_id) {
-        formData.append("folder_id", folder_id);
-      }
-
-      try {
-        const response = await API.post(`/files/upload-chunk`, formData, {
-          onUploadProgress: (progressEvent) => {
-            const uploaded = progressEvent.loaded;
-            const total = progressEvent.total;
-            const fileProgress = uploadProgress[file.name];
-            const totalUploaded = fileProgress.uploadedBytes + uploaded;
-
-            setUploadProgress((prevProgress) => ({
-              ...prevProgress,
-              [file.name]: {
-                ...fileProgress,
-                uploadedBytes: totalUploaded,
-                percentage: (totalUploaded / file.size) * 100,
-              },
-            }));
-          },
-        });
-        if (response.status === 200) {
-          offset += chunkSize;
-        } else if (response.status === 202) {
-        }
-      } catch (error) {
-        console.error("Error uploading chunk:", error);
-        setUploading(false);
-        // Optionally pause or halt further uploads
-        break;
-      }
+    const formData = new FormData();
+    formData.append("file_name", file.name);
+    formData.append("file_size", file.size);
+    formData.append("file_type", file.type);
+    if (folder_id) {
+      formData.append("folder_id", folder_id);
     }
 
-    // Reset states if needed here
+    setUploading(true); // Indicate the uploading process has started
+
+    try {
+      // Send file details to your backend to get a presigned URL for uploading
+      const detailResponse = await API.post('/files/upload-file', formData);
+      const data = await detailResponse.data;
+
+      if (detailResponse.status === 200 || detailResponse.status === 202) {
+        // Extract the presigned URL and file ID from the response
+        const { file_id, presigned_url } = data;
+        const uploadResponse = await uploadFileToStorageBucket(presigned_url, file);
+
+        if (uploadResponse.ok) {
+
+          // Here, handle the UI update or any actions needed post successful upload
+        } else {
+          console.error("Upload to storage failed", file_id);
+          // Handle upload failure
+        }
+      }
+    } catch (error) {
+      console.error("Error uploading file details:", error);
+    } finally {
+      setUploading(false); // Reset uploading state regardless of outcome
+    }
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -145,7 +169,7 @@ const FileUploadForm = () => {
         {uploading && (
           <div className="flex-row flex  mt-2 justify-center items-center">
             <Spinner />
-            <strong className="mx-2">Hold on while process is ongoing</strong>
+            <strong className="mx-2">Hold on while file is been uploaded</strong>
           </div>
         )}
         <div className="image-upload-wrap rounded-lg">
@@ -172,13 +196,27 @@ const FileUploadForm = () => {
           </div>
         </div>
 
-        {totalBytes > 0 &&
+        {Object.keys(uploadProgress).length > 0 && uploading && selectedFiles.map((file, index) => (
+          <div key={index}>
+            {/* <div>{file.name}</div> */}
+            <div className="progress-bar-container bg-gray-200 h-2 my-5 w-full rounded flex items-center justify-center ">
+              <div
+                className="progress-bar bg-blue-500 pt-3 text-center h-2 rounded"
+                style={{ width: `${uploadProgress[file.name]?.percentage || 0}%` }}
+              >{uploadProgress[file.name]?.percentage || 0}%</div>
+            </div>
+          </div>
+        ))}
+
+
+
+        {/* {uploadProgress > 0 &&
           Object.keys(uploadProgress).map((fileName, index) => {
             const { uploadedBytes, totalBytes, percentage } =
               uploadProgress[fileName];
             return (
               <div key={index} className="flex flex-col mt-3">
-                <div className="progress-bar-container bg-gray-200 h-2 w-full rounded">
+                <div className="">
                   <div
                     className="progress-bar bg-blue-500 h-2 rounded"
                     style={{ width: `${percentage}%` }}
@@ -190,7 +228,9 @@ const FileUploadForm = () => {
                 </small>
               </div>
             );
-          })}
+          })
+
+        } */}
 
         {selectedFiles && selectedFiles.length > 0 && (
           <div className="mt-6 flex justify-center">

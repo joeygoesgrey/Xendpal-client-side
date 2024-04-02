@@ -13,6 +13,7 @@ interface ApplicationContextProps {
     showDeleteModal: boolean;
     fileIdToDelete: string;
     fileTypetoDelete: string;
+    CreateKeyModal: boolean;
     dispatch: React.Dispatch<ApplicationAction>;
 }
 
@@ -34,6 +35,7 @@ const INITIAL_STATE: ApplicationContextProps = {
     showDeleteModal: false,
     fileIdToDelete: "",
     fileTypetoDelete: "",
+    CreateKeyModal: false,
 };
 
 export const ApplicationContext = createContext<ApplicationContextProps>(
@@ -46,7 +48,9 @@ const ApplicationReducer = (
 ): ApplicationContextProps => {
     switch (action.type) {
         case "SET_USERINFO":
-            return { ...state, userinfo: action.payload };
+            return { ...state, userinfo: action.payload }; 
+        case "SET_LOADING":
+            return { ...state, loading: action.payload}
         case "SET_ISUSERLOGGEDIN":
             return { ...state, isUserLoggedIn: action.payload };
         case "SET_USERITEMS":
@@ -65,6 +69,8 @@ const ApplicationReducer = (
             return { ...state, fileIdToDelete: action.payload };
         case "SET_FILETYPETODELETE":
             return { ...state, fileTypetoDelete: action.payload };
+        case "SET_CREATEKEYMODAL":
+            return { ...state, CreateKeyModal: action.payload }
         default:
             return state;
     }
@@ -97,6 +103,7 @@ export const ApplicationContextProvider = ({
                 showDeleteModal: state.showDeleteModal,
                 fileIdToDelete: state.fileIdToDelete,
                 fileTypetoDelete: state.fileTypetoDelete,
+                CreateKeyModal: state.CreateKeyModal,
                 dispatch,
             }}
         >

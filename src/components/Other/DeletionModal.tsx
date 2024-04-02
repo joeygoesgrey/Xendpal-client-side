@@ -7,37 +7,41 @@ import {
 
 const DeleteModal = () => {
 
-    const { fileTypetoDelete, fileIdToDelete, showDeleteModal, dispatch } = useContext(ApplicationContext);
+    const { loading, fileTypetoDelete, fileIdToDelete, showDeleteModal, dispatch } = useContext(ApplicationContext);
 
     const handleDeleteConfirmFolder = async () => {
         try {
+            dispatch({ type: 'SET_LOADING', payload: true });
+
             // Await the deleteUpload function and capture the returned value
             const response = await API.delete(`user/delete_folders/${fileIdToDelete}`);
 
             // Check if the response status code is 204
             if (response.status === 204) {
-                console.log('Folder deleted successfully');
                 dispatch({ type: 'SET_REFRESHUSERITEMS', payload: true })
                 dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
             } else {
                 console.error('Unexpected response status:', response.status);
-                // Handle other status codes or errors as needed
             }
         } catch (error) {
             console.error(error);
             // Handle other errors, such as network errors, here
+        } finally {
+            dispatch({ type: 'SET_LOADING', payload: false });
         }
     };
 
     const handleDeleteConfirm = async () => {
         try {
-            // Await the deleteUpload function and capture the returned value
+            dispatch({ type: 'SET_LOADING', payload: true });
             const result = await deleteUpload(fileIdToDelete);
             dispatch({ type: 'SET_REFRESHUSERITEMS', payload: true })
             dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
 
         } catch (error) {
             console.error(error);
+        } finally {
+            dispatch({ type: 'SET_LOADING', payload: false });
         }
     };
 
@@ -85,7 +89,9 @@ const DeleteModal = () => {
                                         type="button"
                                         onClick={handleDeleteConfirm}
                                     >
-                                        Yes
+                                        {loading ? (
+                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true">Deleting... </span>
+                                        ) : (<span> Yes </span>)}
                                     </button>
                                 ) : (
                                     <button
