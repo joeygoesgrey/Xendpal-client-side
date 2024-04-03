@@ -126,5 +126,4 @@ export {
     getyearlyUsage,
     isTokenExpired,
     getToken,
-    useAuth,
 };

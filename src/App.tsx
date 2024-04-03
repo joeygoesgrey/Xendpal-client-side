@@ -12,6 +12,8 @@ import Form from "@/pages/Form";
 import GoogleCallback from "@/google_login";
 import FolderTable from "@/pages/FolderPage";
 import { isTokenExpired, getToken } from "@/utils/utils";
+import ApiKeyList from "@/pages/ApiList";
+
 
 function App() {
   const navigate = useNavigate();
@@ -43,6 +45,7 @@ function App() {
             <Route path="404" element={<NotFound />} />
             <Route path="upload" element={<Form />} />
             <Route path=":foldername" element={<FolderTable />} />
+            <Route path="apikeys" element={<ApiKeyList />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </>
