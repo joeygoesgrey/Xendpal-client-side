@@ -1,13 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { NavLink } from "react-router-dom";
-import SubMenu from "./SubMenu";
-import { ApplicationContext } from "@/context/ApplicationContext";
+// import SubMenu from "./SubMenu";
 
 interface MenuItem {
   label: string;
   path?: string;
-  icon?: any; // Adjust the type of icon accordingly (e.g., IconDefinition from FontAwesome)
+  icon?: any;  
   submenu?: MenuItem[];
 }
 
@@ -22,8 +20,9 @@ function MenuList({ menus, toggle }: MenuListProps) {
       <ul id="menu" className="">
         {menus?.map((menu) => {
           if (menu.submenu) {
+            
             // Handle submenu case here
-            return <SubMenu key={menu.label} menu={menu} toggle={toggle} />;
+            // return <SubMenu key={menu.label} menu={menus} toggle={toggle} />;
           } else if (menu.path) {
             // Handle menu item with path
             return (

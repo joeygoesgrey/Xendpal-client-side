@@ -5,18 +5,17 @@ import Header from "./Header";
 interface TableProps {
   loading?: boolean;
   dataHeader: { key: string; label: string; sort?: boolean }[];
-  handleSort: (tkey: string, direction: "asc" | "desc") => void;
-  direction: "asc" | "desc";
-  field: string;
+  // handleSort: (tkey: string, direction: "asc" | "desc") => void;
+  // direction: "asc" | "desc";
+  // field: string;
   children?: React.ReactNode;
 }
 
 function Table({
-  loading,
   dataHeader,
-  handleSort,
-  direction,
-  field,
+  // handleSort,
+  // direction,
+  // field,
   children,
 }: TableProps) {
   return (
@@ -26,9 +25,9 @@ function Table({
       >
         <Header
           data={dataHeader}
-          handleSort={handleSort}
-          direction={direction}
-          field={field}
+          // handleSort={handleSort}
+          // direction={direction}
+          // field={field}
         ></Header>
         <tbody className="block md:table-row-group">{children}</tbody>
       </table>

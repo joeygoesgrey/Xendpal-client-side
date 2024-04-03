@@ -1,10 +1,8 @@
-import React from "react";
 import Navbar from "@/components/Navbar/Index";
-import { useOutletContext } from "react-router-dom";
+import { sidebarToggle } from "@/utils/toggler.js";
 
 function NotFound() {
-  const [sidebarToggle] = useOutletContext<boolean>(); // Provide the correct type for sidebarToggle
-
+ 
   return (
     <main className="h-full">
       <Navbar toggle={sidebarToggle} />

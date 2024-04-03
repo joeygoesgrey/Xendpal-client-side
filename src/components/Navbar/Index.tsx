@@ -1,9 +1,8 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 
 interface IndexProps {
-  toggle: () => void; // Function to toggle the sidebar
+  toggle?: () => void; // Function to toggle the sidebar
 }
 
 function Index({ toggle }: IndexProps) {

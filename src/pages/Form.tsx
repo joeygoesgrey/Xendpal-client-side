@@ -1,17 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import { ApplicationContext } from "@/context/ApplicationContext";
 import Navbar from "@/components/Navbar/Index";
-import { useOutletContext } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { API, getuserinfo, formatBytes } from "@/utils/utils";
+import { API, getuserinfo} from "@/utils/utils";
 import ModalComponent from "@/components/Other/FolderCreationModal";
 import { Spinner } from "flowbite-react";
 import SelectComponent from "@/components/Other/FolderSelection";
 import axios from 'axios';
+import { sidebarToggle } from "@/utils/toggler.js";
 
 function Form() {
-  const [sidebarToggle] = useOutletContext();
 
   return (
     <>
@@ -32,8 +31,8 @@ const FileUploadForm = () => {
 
   // INITIALISING LOCAL STATES
   const [uploadProgress, setUploadProgress] = useState({});
-  const [totalBytes, setTotalBytes] = useState(0); // Total file size in bytes
-  const [selectedFiles, setSelectedFiles] = useState([]); // Store the selected file
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  // const [totalBytes, setTotalBytes] = useState(0); // Total file size in bytes
   const [uploading, setUploading] = useState(false); // Flag to track if upload is in progress
 
   const handleFileChange = (e) => {
@@ -118,10 +117,10 @@ const FileUploadForm = () => {
         const { file_id, presigned_url } = data;
         const uploadResponse = await uploadFileToStorageBucket(presigned_url, file);
 
-        if (uploadResponse.ok) {
-
-          // Here, handle the UI update or any actions needed post successful upload
-        } else {
+        if (uploadResponse.status === 200) {
+          console.log('Upload successful');
+        }
+        else {
           console.error("Upload to storage failed", file_id);
           // Handle upload failure
         }
@@ -141,7 +140,7 @@ const FileUploadForm = () => {
       await uploadFile(file); // Upload each file individually
     }
     dispatch({ type: "SET_FOLDERID", payload: "" });
-    setTotalBytes(0)
+    // setTotalBytes(0)
     setUploading(false); // Indicate uploading process has ended
     setSelectedFiles([]); // Clear the selection
     setUploadProgress({}); // Reset the upload progress
@@ -207,30 +206,6 @@ const FileUploadForm = () => {
             </div>
           </div>
         ))}
-
-
-
-        {/* {uploadProgress > 0 &&
-          Object.keys(uploadProgress).map((fileName, index) => {
-            const { uploadedBytes, totalBytes, percentage } =
-              uploadProgress[fileName];
-            return (
-              <div key={index} className="flex flex-col mt-3">
-                <div className="">
-                  <div
-                    className="progress-bar bg-blue-500 h-2 rounded"
-                    style={{ width: `${percentage}%` }}
-                  ></div>
-                </div>
-                <small className="text-center text-xs mt-1">
-                  {formatBytes(uploadedBytes)} of {formatBytes(totalBytes)}{" "}
-                  uploaded
-                </small>
-              </div>
-            );
-          })
-
-        } */}
 
         {selectedFiles && selectedFiles.length > 0 && (
           <div className="mt-6 flex justify-center">

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
-import { getyearlyUsage, formatBytes } from "@/utils/utils";
+import { getyearlyUsage,} from "@/utils/utils";
 
 // Helper Functions
 const monthNumberToName = (monthNumber: number): string => {

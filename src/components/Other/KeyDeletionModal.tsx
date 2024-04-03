@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
     API
 } from "@/utils/utils";
@@ -8,28 +8,29 @@ interface ApiToken {
     token: string;
     name?: string;
     revoked: boolean;
-    created_at: string; // ISO string date
-    edited_at?: string; // ISO string date
+    created_at: string;
+    edited_at?: string;
 }
+
 
 interface KeyDeleteModalProps {
     setDeleteKeyModalState: (state: boolean) => void;
-    selectedToken: ApiToken;
-    setSelectedToken: (token: ApiToken | null) => void;
+    selectedToken: ApiToken; // Ensure this matches the type used in ApiList.tsx
+    setSelectedTokenState: (token: ApiToken | null) => void; // Match the type here too
 }
 
 
 const KeyDeleteModal: React.FC<KeyDeleteModalProps> = ({
     setDeleteKeyModalState,
     selectedToken,
-    setSelectedToken,
+    setSelectedTokenState,
 }) => {
 
 
 
-    const truncateSecretKey = (secretKey: string) => {
-        return secretKey.slice(0, 5) + '...' + secretKey.slice(-5);
-    };
+    // const truncateSecretKey = (secretKey: string) => {
+    //     return secretKey.slice(0, 5) + '...' + secretKey.slice(-5);
+    // };
     const [isDeleting, setIsDeleting] = useState(false);
 
     const deleteApiKey = async (keyId: number) => {
@@ -37,7 +38,7 @@ const KeyDeleteModal: React.FC<KeyDeleteModalProps> = ({
         try {
             await API.delete(`auth/api-keys/${keyId}`);
             alert("API key deleted successfully");
-            setSelectedToken(null);
+            setSelectedTokenState(null);
         } catch (error) {
             console.error("Failed to delete API key:", error);
             alert("Failed to delete API key.");

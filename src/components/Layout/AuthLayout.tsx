@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import   { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
-import { sidebarToggle } from "../../utils/toggler.js";
+import { sidebarToggle } from "@/utils/toggler.js";
 import BottomNavbar from "../BottomNavbar/Index";
 
-interface AuthLayoutProps {
-  // Define any props you might pass to AuthLayout
-  // Example: prop1: string;
-}
+ 
 
 function AuthLayout() {
   const isDesktop = () => document.body.clientWidth > 768;

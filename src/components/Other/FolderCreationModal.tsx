@@ -19,7 +19,7 @@ function ModalComponent() {
     const createFolder = async () => {
         try {
             dispatch({ type: 'SET_LOADING', payload: true });
-            const response = await API.post('/user/create_folder', { name: folderName });
+            await API.post('/user/create_folder', { name: folderName });
         } catch (error) {
             console.error('Error creating folder:', error);
             toast.error('Error creating folder. Please try again.'); // User feedback for error

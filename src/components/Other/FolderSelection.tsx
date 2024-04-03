@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, ChangeEvent } from "react";
+import { useState, useContext, useEffect, ChangeEvent } from "react";
 import { ApplicationContext } from "@/context/ApplicationContext";
 import { API } from "@/utils/utils";
 import { Select } from 'flowbite-react';
@@ -13,7 +13,7 @@ interface Folder {
 function SelectComponent() {
     const { dispatch, loadFolders, folder_id, loading } = useContext(ApplicationContext);
     const [folders, setFolders] = useState<Folder[]>([]);
-    
+
     useEffect(() => {
         dispatch({ type: 'SET_LOADING', payload: true });
         // Fetch folders from the server when the component mounts
@@ -27,7 +27,7 @@ function SelectComponent() {
                 console.error('Failed to fetch folders:', error);
                 dispatch({ type: 'SET_LOADING', payload: false });
             });
-    }, [loadFolders]);
+    }, [loadFolders, dispatch]);
 
 
     const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {

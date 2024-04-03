@@ -11,7 +11,6 @@ import {
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-    API_BASE_URL,
     deleteUpload,
     API,
 } from "@/utils/utils";
@@ -25,21 +24,34 @@ import React from 'react';
 interface CopiedStatus {
     [key: string]: boolean;
 }
+interface FileItem {
+    id: string;
+    name: string;
+    created_at: string; // Assuming you might need to use the creation date
+    type: string; // Assuming this could be useful in your logic
+}
+
 
 
 interface FolderPageProps {
-    query: string;
+    // query: string;
     folderId: string;
     // loading: boolean;
     foldername: string;
 }
 
-const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) => {
+const FolderPage: React.FC<FolderPageProps> = ({ folderId, foldername }) => {
     const [refresh, setRefresh] = useState(false);
     const { userItems, searchTerm, loading, dispatch } = useContext(ApplicationContext);
     const [fileIdToDelete, setFileIdToDelete] = useState<string | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [copiedStatus, setCopiedStatus] = useState<CopiedStatus>({});
+    useEffect(() => {
+        // This code will run whenever the page or URL changes
+        dispatch({ type: "SET_USERITEMS", payload: null });
+        dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
+      }, [dispatch]); // Pass the variable that you want to watch for changes here
+    
     useEffect(() => {
         const fetchFiles = async () => {
             try {
@@ -48,6 +60,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
                 const data = await response.data;
                 dispatch({ type: "SET_USERITEMS", payload: data });
                 setRefresh(false); // Reset the refresh state after data is fetched
+
             } catch (error) {
                 console.error("Failed to fetch files", error);
             }
@@ -56,7 +69,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
         if (folderId) {
             fetchFiles();
         }
-    }, [folderId, refresh]);
+    }, [folderId, refresh, dispatch]);
 
     const handleCopyClick = (fileId: string, link: string) => {
         navigator.clipboard.writeText(link);
@@ -115,7 +128,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
     ];
 
     const filteredUserItems = userItems
-        ? userItems.filter((file) =>
+        ? userItems.filter((file: FileItem) =>
             file.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
         : [];
@@ -140,6 +153,8 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
             </span>
         );
     };
+    console.log(userItems);
+
 
     return (
         <Timeline>
@@ -169,8 +184,8 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
                             </div>
                         )}
 
-                        <Datatables loading={loading} dataHeader={dataHeader}>
-                            {filteredUserItems.map((file, index) => (
+                        <Datatables  dataHeader={dataHeader}>
+                            {filteredUserItems.map((file: FileItem, index:number ) => (
                                 <tr
                                     key={index}
                                     className="bg-white border md:border-b block md:table-row rounded-md shadow-md md:rounded-none md:shadow-none mb-5"
@@ -213,11 +228,11 @@ const FolderPage: React.FC<FolderPageProps> = ({ query, folderId, foldername }) 
                                         </span>
                                     </TableCell>
 
-                                    <TableCell>
+                                    <TableCell dataLabel="Action" showLabel={true}>
                                         <div
                                             onClick={() =>
                                                 handleCopyClick(
-                                                    file.file_id,
+                                                    file?.id,
                                                     `https://storage.googleapis.com/xendpal/${file.name}`
                                                 )
                                             }

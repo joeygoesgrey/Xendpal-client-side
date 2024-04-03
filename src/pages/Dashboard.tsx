@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import StatisticWidget from "@/components/Widget/Statistic";
 import DashboardHeader from "@/components/Other/DashboardHeader";
-import { useOutletContext } from "react-router-dom";
 import { getuserinfo } from "@/utils/utils.js";
 import { ApplicationContext } from "@/context/ApplicationContext";
 import { formatBytes } from "@/utils/utils.js";
 import { Progress } from 'flowbite-react';
+import { sidebarToggle } from "@/utils/toggler.js";
 
 
 
@@ -32,8 +32,6 @@ function Dashboard() {
     fetchUserInfo();
   }, [dispatch]);
 
-  const avatar: string | null = userinfo?.picture;
-  const sidebarToggle = useOutletContext()[0];
 
   return (
     <>
@@ -41,7 +39,7 @@ function Dashboard() {
         {/* Welcome Header */}
         <DashboardHeader
           toggle={sidebarToggle}
-          avatar={avatar}
+          avatar={userinfo?.picture}
           user={{ name: userinfo?.name }}
         />
 

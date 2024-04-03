@@ -1,4 +1,10 @@
-import React, { createContext, useReducer, ReactNode } from "react";
+import React, { createContext, useReducer, ReactNode, } from "react";
+
+interface ApplicationAction {
+    type: string;
+    payload: any; // Replace 'any' with the actual payload type
+}
+
 
 interface ApplicationContextProps {
     loading: boolean;
@@ -17,11 +23,6 @@ interface ApplicationContextProps {
     dispatch: React.Dispatch<ApplicationAction>;
 }
 
-interface ApplicationAction {
-    type: string;
-    payload: any; // Replace 'any' with the actual payload type
-}
-
 const INITIAL_STATE: ApplicationContextProps = {
     loading: false,
     sidebarToggle: false,
@@ -36,6 +37,8 @@ const INITIAL_STATE: ApplicationContextProps = {
     fileIdToDelete: "",
     fileTypetoDelete: "",
     CreateKeyModal: false,
+    dispatch: () => { } 
+
 };
 
 export const ApplicationContext = createContext<ApplicationContextProps>(
@@ -48,9 +51,9 @@ const ApplicationReducer = (
 ): ApplicationContextProps => {
     switch (action.type) {
         case "SET_USERINFO":
-            return { ...state, userinfo: action.payload }; 
+            return { ...state, userinfo: action.payload };
         case "SET_LOADING":
-            return { ...state, loading: action.payload}
+            return { ...state, loading: action.payload }
         case "SET_ISUSERLOGGEDIN":
             return { ...state, isUserLoggedIn: action.payload };
         case "SET_USERITEMS":

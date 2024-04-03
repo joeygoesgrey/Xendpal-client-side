@@ -34,7 +34,7 @@ const DeleteModal = () => {
     const handleDeleteConfirm = async () => {
         try {
             dispatch({ type: 'SET_LOADING', payload: true });
-            const result = await deleteUpload(fileIdToDelete);
+            await deleteUpload(fileIdToDelete);
             dispatch({ type: 'SET_REFRESHUSERITEMS', payload: true })
             dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
 

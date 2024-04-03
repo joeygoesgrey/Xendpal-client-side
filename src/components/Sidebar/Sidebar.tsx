@@ -1,6 +1,6 @@
 import { faSignOut, faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import { useState } from "react";
 import initMenus from "@/data/menus.js";
 import "./sidebar.css";
 import SidebarLogo from "./SidebarLogo";
@@ -13,7 +13,7 @@ interface SidebarProps {
 }
 
 function Sidebar({ className, toggle }: SidebarProps) {
-  const [menus, setMenus] = useState(initMenus);
+  const [menus] = useState(initMenus);
 
   const logout = async () => {
     try {

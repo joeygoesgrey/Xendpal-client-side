@@ -27,23 +27,25 @@ interface handleClickOptionsProps {
   fileIdToDelete: string | number;
 }
 
-function UserTable({ loading }: { loading: boolean }) {
+interface FileItem {
+  id: string;
+  name: string;
+  created_at: string; // Assuming you might need to use the creation date
+  type: string; // Assuming this could be useful in your logic
+}
+
+
+function UserTable() {
   const { refreshUserItems, userItems, searchTerm, dispatch } = useContext(ApplicationContext);
   // const [fileIdToDelete, setFileIdToDelete] = useState<string | null>(null);
   const [copiedStatus, setCopiedStatus] = useState<CopiedStatus>({});
 
   useEffect(() => {
-    // This code will run whenever the page or URL changes
-    dispatch({ type: "SET_USERITEMS", payload: null });
-    dispatch({ type: 'SET_SHOWDELETEMODAL', payload: false })
-  }, [window.location.href]); // Pass the variable that you want to watch for changes here
-
-  useEffect(() => {
-    getUserItems().then((userItemsFromServer) => {
+    getUserItems().then((userItemsFromServer: FileItem) => {
       dispatch({ type: "SET_USERITEMS", payload: userItemsFromServer });
       dispatch({ type: 'SET_REFRESHUSERITEMS', payload: false })
     });
-  }, [refreshUserItems]);
+  }, [refreshUserItems, dispatch]);
 
   const handleCopyClick = (fileId: string, link: string) => {
     navigator.clipboard.writeText(link);
@@ -81,10 +83,11 @@ function UserTable({ loading }: { loading: boolean }) {
   ];
 
   const filteredUserItems = userItems
-    ? userItems.filter((file) =>
+    ? userItems.filter((file: FileItem) =>
       file.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     : [];
+
 
   const highlightText = (text: string, highlight: string) => {
     // Split on highlight term and include term into parts, ignore case
@@ -129,8 +132,8 @@ function UserTable({ loading }: { loading: boolean }) {
         </div>
       )}
       {filteredUserItems.length > 0 && (
-        <Datatables loading={loading} dataHeader={dataHeader}>
-          {filteredUserItems.map((file, index) => (
+        <Datatables dataHeader={dataHeader}>
+          {filteredUserItems.map((file: FileItem, index: number) => (
             <tr
               key={index}
               className="bg-white border md:border-b block md:table-row rounded-md shadow-md md:rounded-none md:shadow-none mb-5"
@@ -181,13 +184,13 @@ function UserTable({ loading }: { loading: boolean }) {
                 </span>
               </TableCell>
 
-              <TableCell>
+              <TableCell dataLabel="Action" showLabel={true}>
                 {file.type === 'file' && (
 
                   <div
                     onClick={() =>
                       handleCopyClick(
-                        file.file_id,
+                        file.id,
                         `https://storage.googleapis.com/xendpal/${file.name}`
                       )
                     }
