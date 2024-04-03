@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { API, storeDataInSession } from "./utils/utils";
+import { API, storeDataInSession } from "@/utils/utils";
 
 const GoogleCallback: React.FC = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const GoogleCallback: React.FC = () => {
       storeDataInSession("refresh_token", data.refresh_token);
 
       if (data.access_token) {
-        navigate("/home");
+        navigate("/");
       } else {
         navigate("/auth/login");
       }

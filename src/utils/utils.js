@@ -94,7 +94,7 @@ const getUserItems = async () => {
 const getuserinfo = async () => {
     try {
         const response = await API.get('/user/info');
-        const data = await response.data; 
+        const data = await response.data;
         return data;
     } catch (error) {
         console.error('Error:', error);
@@ -113,7 +113,7 @@ const getyearlyUsage = async () => {
 };
 
 
-
+ 
 export {
     API,
     API_BASE_URL,
@@ -126,4 +126,5 @@ export {
     getyearlyUsage,
     isTokenExpired,
     getToken,
+    useAuth,
 };
