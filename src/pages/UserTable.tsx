@@ -156,7 +156,7 @@ function UserTable() {
                 {file.type === 'file' ? (
                   <a
                     href={`
-                    https://storage.googleapis.com/xendpal/${file.id}-${file.name}`}
+                    https://storage.googleapis.com/xendpal/${file.name}`}
                     target="_blank"
                     className="inline-flex items-center"
                   >
@@ -191,10 +191,10 @@ function UserTable() {
                     onClick={() =>
                       handleCopyClick(
                         file.id,
-                        `https://storage.googleapis.com/xendpal/${file.id}-${file.name}`
+                        `https://storage.googleapis.com/xendpal/${file.name}`
                       )
                     }
-                    className={`icon- inline-flex my-auto px-3 cursor-pointer text-sm`}
+                    className={`icon-container inline-flex my-auto px-3 cursor-pointer text-sm`}
                   >
                     {copiedStatus[file.id] ? (
                       <FontAwesomeIcon
@@ -235,7 +235,5 @@ function UserTable() {
 
 
 export default UserTable;
-
-
 
 
