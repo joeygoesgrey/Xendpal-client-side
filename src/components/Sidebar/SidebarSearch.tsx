@@ -1,10 +1,16 @@
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import { useLocation } from "react-router-dom";
 
 function SidebarSearch() {
   const { dispatch } = useContext(ApplicationContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch({ type: "SET_SEARCHTERM", payload: "" });
+  }, [location.pathname,  dispatch]);
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: "SET_SEARCHTERM", payload: e.target.value });
