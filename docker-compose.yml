@@ -1,0 +1,17 @@
+services:
+  web:
+    image: nginx:stable-alpine
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    command: "certonly --webroot --webroot-path=/var/www/certbot --email josephedomobi777@gmail.com --agree-tos --no-eff-email -d xendpal.cloud -d www.xendpal.cloud"
