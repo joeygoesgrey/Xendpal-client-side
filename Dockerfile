@@ -1,23 +1,22 @@
-# Use a base image with Node.js and Vite
-FROM node:18-alpine as build
+# Stage 1: Build
+FROM node:18-alpine AS build
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the project files
+COPY package.json package-lock.json ./
+
+RUN npm install
+
 COPY . .
 
-# Install dependencies
-RUN npm ci
-
-# Build the Vite app
 RUN npm run build
 
-# Use a lightweight server to serve the built app
+# Stage 2: Production
 FROM nginx:stable-alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
+# Removed the line copying nginx.conf to avoid confusion
 
-EXPOSE 80
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
