@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import { sidebarToggle } from "@/utils/toggler.js";
 import BottomNavbar from "../BottomNavbar/Index";
-
  
 
 function AuthLayout() {
