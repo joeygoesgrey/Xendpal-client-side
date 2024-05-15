@@ -99,7 +99,9 @@ const DeleteModal = () => {
                                         type="button"
                                         onClick={handleDeleteConfirmFolder}
                                     >
-                                        Yes
+                                        {loading ? (
+                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true">Deleting... </span>
+                                        ) : (<span> Yes </span>)}
                                     </button>
                                 )}
                             </div>
