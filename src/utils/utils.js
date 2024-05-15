@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://xendpal.cloud';
+const API_BASE_URL = 'https://api.xendpal.cloud';
 const API = axios.create({ baseURL: API_BASE_URL });
 
 function getToken() {
