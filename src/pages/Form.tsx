@@ -3,7 +3,7 @@ import { ApplicationContext } from "@/context/ApplicationContext";
 import Navbar from "@/components/Navbar/Index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { API, getuserinfo} from "@/utils/utils";
+import { API, getuserinfo } from "@/utils/utils";
 import ModalComponent from "@/components/Other/FolderCreationModal";
 import { Spinner } from "flowbite-react";
 import SelectComponent from "@/components/Other/FolderSelection";
@@ -126,6 +126,7 @@ const FileUploadForm = () => {
         }
       }
     } catch (error) {
+      alert("A file with this name already exists. Please use a different name or update the existing file.")
       console.error("Error uploading file details:", error);
     } finally {
       setUploading(false); // Reset uploading state regardless of outcome
@@ -198,7 +199,7 @@ const FileUploadForm = () => {
         {Object.keys(uploadProgress).length > 0 && uploading && selectedFiles.map((file, index) => (
           <div key={index}>
             {/* <div>{file.name}</div> */}
-            <div className="progress-bar-container bg-gray-200 h-2 my-5 w-full rounded flex items-center justify-center ">
+            <div className="progress-bar-container bg-gray-200 h-2 my-5 w-full rounded flex items-center">
               <div
                 className="progress-bar bg-blue-500 pt-3 text-center h-2 rounded"
                 style={{ width: `${uploadProgress[file.name]?.percentage || 0}%` }}
@@ -207,7 +208,7 @@ const FileUploadForm = () => {
           </div>
         ))}
 
-        {selectedFiles && selectedFiles.length > 0 && (
+        {selectedFiles && selectedFiles.length > 0 && !uploading && (
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
