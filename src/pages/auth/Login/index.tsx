@@ -174,7 +174,7 @@ const HeroSection: React.FC = () => {
             <div className="mt-10 md:mt-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
                 width="672.12891"
                 height="669.16392"
                 viewBox="0 0 672.12891 669.16392"
