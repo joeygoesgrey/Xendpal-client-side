@@ -129,9 +129,7 @@ const HeroSection: React.FC = () => {
                 Xendpal is a pioneering platform designed to streamline the way
                 developers and designers manage, host, and embed static files.
                 When it comes to managing, hosting, and embedding static files
-                for your web projects, look no further than Xendpal. Xendpal is
-                the premier platform designed to simplify and revolutionize how
-                developers and designers handle static content.
+                for your web projects, look no further than Xendpal.
               </p>
               <div className="flex justify-center space-x-4">
                 <a
