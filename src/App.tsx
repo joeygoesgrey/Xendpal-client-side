@@ -14,7 +14,6 @@ import FolderTable from "@/pages/FolderPage";
 import { isTokenExpired, getToken } from "@/utils/utils";
 import ApiKeyList from "@/pages/ApiList";
 
-
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,8 +22,12 @@ function App() {
     const checkAuth = () => {
       const token = getToken(); // Get the token from localStorage or cookies
       // Redirect to login page if no token or token is expired and not already on a public path
-      if ((!token || isTokenExpired(token)) && !location.pathname.startsWith("/auth/login") && !location.pathname.startsWith("/login/google")) {
-        navigate("/auth/login");
+      if (
+        (!token || isTokenExpired(token)) &&
+        !location.pathname.startsWith("/auth/login") &&
+        !location.pathname.startsWith("/login/google")
+      ) {
+        navigate("/xendpal"); // Updated to navigate to "/xendpal"
       }
     };
 
@@ -51,13 +54,13 @@ function App() {
         </>
       ) : (
         <>
-          <Route path="/auth/login" element={<GuestLayout />}>
+          <Route path="/xendpal" element={<GuestLayout />}>
             <Route index element={<Login />} />
           </Route>
           <Route path="/login/google" element={<GuestLayout />}>
             <Route index element={<GoogleCallback />} />
           </Route>
-          <Route path="*" element={<Navigate replace to="/auth/login" />} />
+          <Route path="*" element={<Navigate replace to="/xendpal" />} />
         </>
       )}
     </Routes>

@@ -1,3 +1,4 @@
+
 .sidebarWrapper{
     @apply lg:block absolute flex flex-col left-0 top-0 md:static md:left-auto md:top-auto h-screen overflow-y-scroll md:overflow-y-auto w-full md:w-64 shrink-0 transition-all duration-200 ease-in-out z-40 bg-white;
 }
