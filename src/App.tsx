@@ -56,6 +56,8 @@ function App() {
         <>
           <Route path="/xendpal" element={<GuestLayout />}>
             <Route index element={<Login />} />
+            <Route path="*" element={<NotFound />} />{" "}
+            {/* Catch-all route for /xendpal sub-routes */}
           </Route>
           <Route path="/login/google" element={<GuestLayout />}>
             <Route index element={<GoogleCallback />} />
