@@ -1,5 +1,5 @@
 // src/hooks/useRandomUsers.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface Testimonial {
   text: string;
@@ -9,7 +9,7 @@ interface Testimonial {
 
 const staticTestimonials: Testimonial[] = [
   {
-    text: "Xendpal increased our team's collaboration while working from home, which has increased our flexibility and could revolutionize our office culture.",
+    text: "Xendpal saved us significant costs on setting up CDNs and storage buckets. It's efficient, cost-effective, and easy to use.",
     name: "Chance Rosser",
     rating: 5,
   },
@@ -19,7 +19,7 @@ const staticTestimonials: Testimonial[] = [
     rating: 5,
   },
   {
-    text: "Our team is working remotely—everyone's in a different time zone. Xendpal is a great hub for us to all work at once and seamlessly share files.",
+    text: "Xendpal drastically improved our workflow by speeding up file uploads and integrating seamlessly with our development tools. It’s a game-changer!",
     name: "Kiana Botosh",
     rating: 5,
   },
@@ -32,7 +32,9 @@ const useRandomUsers = (count: number) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`https://randomuser.me/api/?results=${count}`);
+        const response = await fetch(
+          `https://randomuser.me/api/?results=${count}`
+        );
         const data = await response.json();
         const combinedData = data.results.map((user: any, index: number) => ({
           ...user,
@@ -40,7 +42,7 @@ const useRandomUsers = (count: number) => {
         }));
         setUsers(combinedData);
       } catch (error) {
-        console.error('Error fetching random users:', error);
+        console.error("Error fetching random users:", error);
       } finally {
         setLoading(false);
       }

@@ -6,6 +6,13 @@
 @tailwind utilities;
 
 
+.bg-xendpal {
+  background-color: #62D9C3;
+}
+.bg-xendpal-2{
+  background-color: #80BFB9;
+}
+
 body{
   font-family: 'Numans', sans-serif;
   font-weight: 400;

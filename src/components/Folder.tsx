@@ -206,7 +206,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ folderId, foldername }) => {
 
                                     < TableCell dataLabel="Name" showLabel={true} >
                                         <a
-                                            href={`https://storage.googleapis.com/xendpal/${file.name}`}
+                                            href={`https://cdn.xendpal.cloud/${file.name}`}
                                             target="_blank"
                                             className="inline-flex items-center"
                                         >
@@ -233,7 +233,7 @@ const FolderPage: React.FC<FolderPageProps> = ({ folderId, foldername }) => {
                                             onClick={() =>
                                                 handleCopyClick(
                                                     file?.id,
-                                                    `https://storage.googleapis.com/xendpal/${file.name}`
+                                                    `https://cdn.xendpal.cloud/${file.name}`
                                                 )
                                             }
                                             className={`icon-container inline-flex my-auto px-3 cursor-pointer text-sm`}

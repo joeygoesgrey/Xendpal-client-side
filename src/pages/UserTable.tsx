@@ -156,7 +156,7 @@ function UserTable() {
                 {file.type === 'file' ? (
                   <a
                     href={`
-                    https://storage.googleapis.com/xendpal/${file.name}`}
+                    https://cdn.xendpal.cloud/${file.name}`}
                     target="_blank"
                     className="inline-flex items-center"
                   >
@@ -191,7 +191,7 @@ function UserTable() {
                     onClick={() =>
                       handleCopyClick(
                         file.id,
-                        `https://storage.googleapis.com/xendpal/${file.name}`
+                        `https://cdn.xendpal.cloud/${file.name}`
                       )
                     }
                     className={`icon-container inline-flex my-auto px-3 cursor-pointer text-sm`}
