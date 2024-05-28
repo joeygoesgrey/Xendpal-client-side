@@ -38,6 +38,10 @@
     {
       "source": "/(.*)",
       "destination": "/index.html"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://api.xendpal.cloud/Uploads/sitemap.xml"
     }
   ]
 }
