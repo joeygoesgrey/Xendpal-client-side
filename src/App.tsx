@@ -22,11 +22,11 @@ function App() {
   useEffect(() => {
     const checkAuth = () => {
       const token = getToken(); // Get the token from localStorage or cookies
-      // Redirect to login page if no token or token is expired and not already on a public path
+      const publicPaths = ["/xendpal", "/login/google", "/sitemap.xml"];
+
       if (
         (!token || isTokenExpired(token)) &&
-        !location.pathname.startsWith("/xendpal") &&
-        !location.pathname.startsWith("/login/google")
+        !publicPaths.some((path) => location.pathname.startsWith(path))
       ) {
         navigate("/xendpal"); // Updated to navigate to "/xendpal"
       }
@@ -57,7 +57,7 @@ function App() {
         <>
           <Route path="/xendpal" element={<GuestLayout />}>
             <Route index element={<Login />} />
-            <Route path="pricing" element={<Pricing />} /> {/* Add this line */}
+            <Route path="pricing" element={<Pricing />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/login/google" element={<GuestLayout />}>
