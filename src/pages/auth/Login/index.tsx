@@ -3,6 +3,7 @@ import { API_BASE_URL } from "@/utils/utils.js";
 import useRandomUsers from "@/components/Other/random";
 import Navbar from "@/components/Other/Navbar";
 import Footer from "@/components/Other/FooterComp";
+import pic from "@/assets/undraw_Server_status_re_n8ln.png"
 
 interface FAQItem {
   question: string;
@@ -360,7 +361,7 @@ const AboutSection: React.FC = () => {
           </div>
           <div className="flex items-center justify-center">
             <img
-              src="http://cdn.xendpal.cloud/20-undraw_Server_status_re_n8ln.png"
+              src={pic}
               alt="Xendpal features"
               className="rounded-lg "
             />
