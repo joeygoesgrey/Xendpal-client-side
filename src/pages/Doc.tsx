@@ -6,8 +6,8 @@ const DocumentationPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100 p-8">
-        <div className="max-w-screen-lg mx-auto bg-white shadow-md rounded-lg p-8">
+      <div className="bg-gray-100">
+        <div className="container mx-auto bg-white shadow-md rounded-lg md:p-8 p-4">
           <h1 className="text-3xl font-bold mb-6">Xendpal CLI</h1>
           <p className="text-lg mb-6">
             Xendpal CLI is a command-line interface to interact with Xendpal,
@@ -131,14 +131,14 @@ xendpalcli --token YOUR_API_TOKEN delete_item --folder FOLDER_ID`}
           <div className="mt-8 flex justify-center space-x-4">
             <a
               href="/xendpalcli.exe"
-              download={'xendpalcli.exe'}
+              download={"xendpalcli.exe"}
               className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
             >
               Download for Windows
             </a>
             <a
               href="/xendpalcli"
-              download={'xendpalcli'}
+              download={"xendpalcli"}
               className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
             >
               Download for Linux

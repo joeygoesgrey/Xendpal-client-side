@@ -3,7 +3,7 @@ import { API_BASE_URL } from "@/utils/utils.js";
 import useRandomUsers from "@/components/Other/random";
 import Navbar from "@/components/Other/Navbar";
 import Footer from "@/components/Other/FooterComp";
-import pic from "@/assets/undraw_Server_status_re_n8ln.png"
+import pic from "@/assets/undraw_Server_status_re_n8ln.png";
 
 interface FAQItem {
   question: string;
@@ -302,7 +302,7 @@ const AboutSection: React.FC = () => {
   return (
     <>
       <section className="bg-white text-black py-20" id="about_xendpal">
-        <h2 className="text-3xl font-bold text-center mb-4 ">
+        <h2 className="text-3xl font-bold text-center mb-4 p-2">
           What else can Xendpal help you do?
         </h2>
         <p className="text-gray-600 mb-8 px-3 text-center">
@@ -360,11 +360,7 @@ const AboutSection: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <img
-              src={pic}
-              alt="Xendpal features"
-              className="rounded-lg "
-            />
+            <img src={pic} alt="Xendpal features" className="rounded-lg " />
           </div>
         </div>
       </section>
@@ -376,12 +372,6 @@ const CTA: React.FC = () => {
   return (
     <>
       <div className="flex flex-row justify-center mb-20">
-        <h3 className="text-green font-bold my-auto mx-4 text-3xl">
-          Get Started with Xendpal
-        </h3>
-
-        <span className="my-auto text-green-500 mx-2"> &gt; &gt; &gt;</span>
-
         <a
           href={`${API_BASE_URL}/user/google_redirect`}
           className="animate__bounceInDown flex  border border-teal text-center text-black py-3 px-6 rounded bg-xendpal "
