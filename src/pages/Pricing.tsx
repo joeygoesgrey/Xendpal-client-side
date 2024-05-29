@@ -16,7 +16,7 @@ const PricingSection: React.FC = () => {
             <h1 className="text-base font-semibold leading-7 text-indigo-400">
               Pricing
             </h1>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-black sm:text-5xl">
               Whether it's just you, or your entire team - we've got you
               covered.
             </p>
@@ -43,23 +43,23 @@ const ThirdProduct: React.FC = () => {
         <div className="flex items-center justify-between gap-x-4">
           <h2
             id="product3"
-            className="text-lg font-semibold leading-8 text-white"
+            className="text-lg font-semibold leading-8 text-teal-600"
           >
-            Product Type 3
+            Storage
           </h2>
         </div>
         <p className="mt-4 text-sm leading-6 text-black">
           Product details for Product Type 3
         </p>
         <p className="mt-6 flex items-baseline gap-x-1">
-          <span className="text-4xl font-bold tracking-tight text-white">
+          <span className="text-4xl font-bold tracking-tight text-teal-600">
             € 50 / unit
           </span>
         </p>
         <a
           href="/order"
           aria-describedby="product3"
-          className="bg-white/10 border border-green-500 text-white hover:bg-white/20 focus-visible:outline-white mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="bg-white/10 border border-green-500 text-teal-600 hover:bg-white/20 focus-visible:outline-white mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           Order Now
         </a>
@@ -73,7 +73,7 @@ const ThirdProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -89,7 +89,7 @@ const ThirdProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -105,7 +105,7 @@ const ThirdProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -128,11 +128,11 @@ const SecondProduct: React.FC = () => {
         <div className="flex items-baseline justify-between gap-x-4">
           <h2
             id="product2"
-            className="text-lg font-semibold leading-8 text-white"
+            className="text-lg font-semibold leading-8 text-teal-600"
           >
-            Product Type 2
+            Team
           </h2>
-          <p className="rounded-full bg-indigo-500 px-2.5 py-1 text-xs font-semibold leading-5 text-white">
+          <p className="rounded-full bg-xendpal  px-2.5 py-1 text-xs font-semibold leading-5 text-white">
             Most popular
           </p>
         </div>
@@ -140,14 +140,14 @@ const SecondProduct: React.FC = () => {
           The most popular choice. Product details for Product Type 2
         </p>
         <p className="mt-6 flex items-baseline gap-x-1">
-          <span className="text-4xl font-bold tracking-tight text-white">
+          <span className="text-4xl font-bold tracking-tight text-teal-600">
             € 20 / unit
           </span>
         </p>
         <a
           href="/order"
           aria-describedby="product2"
-          className="  border border-green-500 text-white shadow-sm hover:bg-black focus-visible:outline-indigo-500 mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="  border border-green-500 text-teal-600 shadow-sm hover:bg-black focus-visible:outline-indigo-500 mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           Order Now
         </a>
@@ -161,7 +161,7 @@ const SecondProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -177,7 +177,7 @@ const SecondProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -193,7 +193,7 @@ const SecondProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -216,23 +216,23 @@ const FirstProduct: React.FC = () => {
         <div className="flex items-center justify-between gap-x-4">
           <h2
             id="product1"
-            className="text-lg font-semibold leading-8 text-white"
+            className="text-lg font-semibold leading-8 text-teal-600"
           >
-            Product Type 1
+            DEV
           </h2>
         </div>
         <p className="mt-4 text-sm leading-6 text-black">
           Product details for Product Type 1
         </p>
         <p className="mt-6 flex items-baseline gap-x-1">
-          <span className="text-4xl font-bold tracking-tight text-white">
+          <span className="text-4xl font-bold tracking-tight text-teal-600">
             € 10 / unit
           </span>
         </p>
         <a
           href="/order"
           aria-describedby="product1"
-          className="bg-white/10 border border-green-500 text-white hover:bg-white/20 focus-visible:outline-white mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="bg-white/10 border border-green-500 text-teal-600 hover:bg-white/20 focus-visible:outline-white mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           Order Now
         </a>
@@ -246,7 +246,7 @@ const FirstProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -262,7 +262,7 @@ const FirstProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"
@@ -278,7 +278,7 @@ const FirstProduct: React.FC = () => {
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
-              className="h-6 w-5 flex-none text-white"
+              className="h-6 w-5 flex-none text-teal-600"
             >
               <path
                 fillRule="evenodd"

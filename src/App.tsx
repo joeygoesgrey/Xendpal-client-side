@@ -14,6 +14,7 @@ import FolderTable from "@/pages/FolderPage";
 import { isTokenExpired, getToken } from "@/utils/utils";
 import ApiKeyList from "@/pages/ApiList";
 import Pricing from "@/pages/Pricing"; // Ensure this is the correct path to the Pricing component
+import DocumentationPage from "./pages/Doc";
 
 function App() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ function App() {
           <Route path="/xendpal" element={<GuestLayout />}>
             <Route index element={<Login />} />
             <Route path="pricing" element={<Pricing />} />
+            <Route path="CLI" element={<DocumentationPage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/login/google" element={<GuestLayout />}>
