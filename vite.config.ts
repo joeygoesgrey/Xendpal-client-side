@@ -12,12 +12,5 @@ export default defineConfig({
   },
   server: {
     host: true,
-    proxy: {
-      '/sitemap.xml': {
-        target: 'https://api.xendpal.cloud',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/sitemap.xml/, '/Uploads/sitemap.xml'),
-      },
-    },
   },
 });

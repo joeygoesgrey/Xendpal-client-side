@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /xendpal
+Disallow: /login
+Disallow: /items
+Disallow: /upload
+Disallow: /apikeys
+Disallow: /404
+
+Sitemap: https://www.xendpal.cloud/sitemap.xml

@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     const checkAuth = () => {
       const token = getToken(); // Get the token from localStorage or cookies
-      const publicPaths = ["/xendpal", "/login/google", "/sitemap.xml"];
+      const publicPaths = ["/xendpal", "/login/google",];
 
       if (
         (!token || isTokenExpired(token)) &&
