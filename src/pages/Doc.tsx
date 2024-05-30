@@ -26,28 +26,35 @@ const DocumentationPage: React.FC = () => {
           </ul>
 
           <h2 className="text-2xl font-semibold mb-4">Installation</h2>
+          <p>Move the Binary to a Preferred Location (optional)</p>
+          <div className="bg-gray-800 text-white p-4 rounded my-6">
+            <pre>
+              <code>
+                mkdir -p ~/xendpalcli mv ~/Downloads/xendpalcli-linux
+                ~/xendpalcli/xendpalcli
+              </code>
+            </pre>
+          </div>
 
-          <pre className="bg-gray-800 text-white p-4 rounded mb-6">
-            <code>
-              {`
-#Move the Binary to a Preferred Location (optional)
-mkdir -p ~/xendpalcli
+          <p>Make the Binary Executable</p>
+          <div className="bg-gray-800 text-white p-4 rounded mb-6">
+            <pre>
+              <code>chmod +x ~/xendpalcli/xendpalcli</code>
+            </pre>
+          </div>
 
-mv ~/Downloads/xendpalcli-linux ~/xendpalcli/xendpalcli
-
-# Make the Binary Executable:
-chmod +x ~/xendpalcli/xendpalcli
-
-# Adding the Binary to the System PATH:
-nano ~/.bashrc
-
-export PATH="$HOME/xendpalcli:$PATH"
-
-source ~/.bashrc
-
-`}
-            </code>
-          </pre>
+          <p>Adding the Binary to the System PATH</p>
+          <div className="bg-gray-800 text-white p-4 rounded mb-6">
+            <pre>
+              <code>nano ~/.bashrc</code>
+            </pre>
+            <pre>
+              <code>export PATH="$HOME/xendpalcli:$PATH"</code>
+            </pre>
+            <pre>
+              <code>source ~/.bashrc</code>{" "}
+            </pre>
+          </div>
 
           <p className="mb-6">Verify installation</p>
           <pre className="bg-gray-800 text-white p-4 rounded mb-6">

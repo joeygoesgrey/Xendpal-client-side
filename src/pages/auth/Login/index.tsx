@@ -413,7 +413,7 @@ const HeroSection: React.FC = () => {
       <section className="bg-black text-white py-20" id="HERO SECTION">
         <div className="container mx-auto px-6 flex flex-col items-center">
           <div className="md:w-3/4 text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 ">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
               Optimize Your Web Development Workflow with Xendpal
             </h1>
             <p className="text-lg mb-8">
@@ -507,7 +507,7 @@ const HeroSection: React.FC = () => {
             {/* END OF RESULTS CHECKMARK SECTION */}
           </div>
           {/* TOP STORAGE BUCKETS SVG */}
-          <div className="mt-10 md:mt-0">
+          <div className="mt-2 md:mt-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               xmlnsXlink="http://www.w3.org/1999/xlink"
