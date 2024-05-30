@@ -6,8 +6,8 @@ const DocumentationPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100">
-        <div className="container mx-auto bg-white shadow-md rounded-lg md:p-8 p-4">
+      <div className="bg-white">
+        <div className="container mx-auto bg-white rounded-lg md:p-8 p-4">
           <h1 className="text-3xl font-bold mb-6">Xendpal CLI</h1>
           <p className="text-lg mb-6">
             Xendpal CLI is a command-line interface to interact with Xendpal,
